@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Reddit Gallery Keys",
+  "version": "0.1.0",
+  "description": "Navigate Reddit's image gallery lightbox with the left and right arrow keys.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.reddit.com/*",
+        "*://sh.reddit.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
