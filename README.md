@@ -48,6 +48,15 @@ Reddit tab.
 To debug, open DevTools and look for log lines prefixed with
 `[reddit-arrowkeys]`.
 
+## Releasing
+
+To package a new version for the Chrome Web Store:
+
+1. Bump `"version"` in `manifest.json` (e.g. `0.1.0` → `0.2.0`).
+2. Run `./release.sh` — produces `reddit-gallery-keys-v<version>.zip` in the
+   project root, containing only the files the extension needs.
+3. Upload the zip to the Chrome Web Store Developer Console.
+
 ## License
 
 [MIT](LICENSE)
