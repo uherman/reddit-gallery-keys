@@ -23,6 +23,12 @@
   }
 
   const isVisible = (el) => {
+    if (el.checkVisibility) {
+      return el.checkVisibility({
+        checkVisibilityCSS: true,
+        checkOpacity: true,
+      });
+    }
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   };
@@ -32,9 +38,21 @@
     deepQueryAll("shreddit-media-lightbox").length > 0;
 
   function buttonFromSlot(name) {
-    const el = deepQueryAll(`[slot="${name}"]`)[0];
-    if (!el) return null;
-    return el.tagName === "BUTTON" ? el : el.querySelector("button");
+    const candidates = deepQueryAll(`[slot="${name}"]`)
+      .map((s) => (s.tagName === "BUTTON" ? s : s.querySelector("button")))
+      .filter((b) => b && isVisible(b));
+    if (candidates.length <= 1) return candidates[0] || null;
+
+    // Multiple visible candidates means the feed is rendered behind the
+    // lightbox overlay. The lightbox chevrons sit at the viewport edges;
+    // feed-card chevrons are inset. Pick the one closest to the edge.
+    const isPrev = name === "prevButton";
+    candidates.sort((a, b) => {
+      const ar = a.getBoundingClientRect();
+      const br = b.getBoundingClientRect();
+      return isPrev ? ar.left - br.left : br.right - ar.right;
+    });
+    return candidates[0];
   }
 
   function findNavButtons() {
