@@ -21,7 +21,7 @@ Works on Chromium-based browsers (Chrome, Brave, Edge, Vivaldi, Arc).
 
 ### From the Chrome Web Store
 
-*(Coming soon.)*
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/lalfikchchoijohcabhlknaecnpgikgb).
 
 ## How it works
 
